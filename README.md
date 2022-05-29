@@ -4,4 +4,5 @@
 - Tailwind css 3.0
 - React
 - Solidity
+- Hardhat Local Development
 
