@@ -2,7 +2,8 @@ import { AiFillCiCircle } from 'react-icons/ai';
 import { SiEthereum } from 'react-icons/si';
 import { BsInfoCircle } from 'react-icons/bs';
 
-// import { Loader } from './';
+import { Loader } from './';
+
 const commonStyles =
     'min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white';
 
@@ -14,16 +15,20 @@ const Input = ({ placeholder, type, name, value, handleChange }) => (
         name={name}
         step='0.0001'
         onChange={(e) => handleChange(e, name)}
-        className='my-2 w-full'
+        className='my-2 w-full m-1 p-3 bg-transparent rounded-md text-sm outline-none text-white border-none white-glassmorphism'
     />
 );
 
 const Welcome = () => {
     const connectWallet = () => {};
 
+    const handleSubmit = () => {
+        console.log('send money');
+    };
+
     return (
         <div className='w-full flex md:justify-center justify-between items-center p-4'>
-            <div className='flex md:flex-row flex-col flex-start justify-between md:20 py-20 px-4'>
+            <div className='flex md:flex-row md:items-first flex-col items-center flex-start justify-between md:20 py-20 px-4'>
                 <div className='flex flex-col flex-1 justify-start w-full md:mr-10'>
                     <h1 className='text-3xl sm:text-5xl text-white text-gradient py-1'>
                         Send Crypto <br /> across the world
@@ -66,11 +71,40 @@ const Welcome = () => {
 
                     <div className='p-5 sm:w-96 w-full flex flex-col justify-start rounded-2xl items-center blue-glassmorphism'>
                         <Input
-                            placeholder={`Address To`}
+                            placeholder='Address To'
                             type='input'
-                            name='AddressTo'
+                            name='addressTo'
                             handleChange={() => {}}
                         />
+                        <Input
+                            placeholder='Amount (ETH)'
+                            type='number'
+                            name='Amount'
+                            handleChange={() => {}}
+                        />{' '}
+                        <Input
+                            placeholder='Keyword (Gif)'
+                            type='input'
+                            name='keyword'
+                            handleChange={() => {}}
+                        />{' '}
+                        <Input
+                            placeholder='Enter Message'
+                            type='input'
+                            name='message'
+                            handleChange={() => {}}
+                        />
+                        {true ? (
+                            <Loader />
+                        ) : (
+                            <button
+                                type='submit'
+                                onClick={handleSubmit}
+                                className='w-full text-white border-[1px] border-[#2952e3] py-2 px-7 m-4 rounded-full curser-pointer hover:bg-[#2546bd]'
+                            >
+                                Send Now
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>
