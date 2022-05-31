@@ -1,6 +1,6 @@
 import '../dist/output.css';
 
-import { Navbar, Welcome, Footer, Services } from './components/';
+import { Navbar, Welcome, Footer, Services, Transactions } from './components/';
 
 const App = () => {
     return (
@@ -10,6 +10,7 @@ const App = () => {
                 <Welcome />
             </div>
             <Services />
+            <Transactions />
             <Footer />
         </div>
     );
