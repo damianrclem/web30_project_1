@@ -24,12 +24,22 @@ const Input = ({ placeholder, type, name, value, handleChange }) => (
 );
 
 const Welcome = () => {
-    const { connectWallet, connectedAccount } = useContext(TransactionContext);
+    const { connectWallet, connectedAccount, formData, handleChange, sendTransaction, isLoading } =
+        useContext(TransactionContext);
 
-    console.log(connectedAccount);
+    const truncateConnectedAddress =
+        connectedAccount.substr(0, 5) +
+        '...' +
+        connectedAccount.substr(connectedAccount.length - 5, connectedAccount.length);
 
-    const handleSubmit = () => {
-        console.log('send money');
+    const handleSubmit = (e) => {
+        const { addressTo, amount, keyword, message } = formData;
+
+        e.preventDefault();
+
+        if ((!addressTo || !amount || !keyword, !message)) return;
+
+        sendTransaction();
     };
 
     return (
@@ -42,13 +52,7 @@ const Welcome = () => {
                     <p className='text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base'>
                         Explore the crypto world. Buy and sell cryptocurrency easily on KryptoGIF
                     </p>
-                    <button
-                        type='button'
-                        onClick={connectWallet}
-                        className='flex flex-row justify-center items-center my-5 p-3 bg-[#2952e3] rounded-full curser-pointer hover:bg-[#6546bd]'
-                    >
-                        <p className='text-white text-base text-semibold'>Connect Wallet</p>
-                    </button>
+
                     <div className='grid sm:grid-cols-3 grid-cols-2 w-full mt-10'>
                         <div className={`rounded-tl-2xl ${commonStyles}`}>Reliability</div>
                         <div className={commonStyles}>Security</div>
@@ -69,49 +73,68 @@ const Welcome = () => {
                                 <BsInfoCircle fontSize={17} color='#fff' />
                             </div>
                             <div>
-                                <p className='text-white font-light text-sm'>Address</p>
+                                <p className='text-white font-light text-sm'>
+                                    {truncateConnectedAddress ? (
+                                        truncateConnectedAddress
+                                    ) : (
+                                        <div>Connect Wallet</div>
+                                    )}
+                                </p>
                                 <p className='text-white font-light text-lg mt-1'>Ethereum</p>
                             </div>
                         </div>
                     </div>
 
-                    <div className='p-5 sm:w-96 w-full flex flex-col justify-start rounded-2xl items-center blue-glassmorphism'>
-                        <Input
-                            placeholder='Address To'
-                            type='input'
-                            name='addressTo'
-                            handleChange={() => {}}
-                        />
-                        <Input
-                            placeholder='Amount (ETH)'
-                            type='number'
-                            name='Amount'
-                            handleChange={() => {}}
-                        />{' '}
-                        <Input
-                            placeholder='Keyword (Gif)'
-                            type='input'
-                            name='keyword'
-                            handleChange={() => {}}
-                        />{' '}
-                        <Input
-                            placeholder='Enter Message'
-                            type='input'
-                            name='message'
-                            handleChange={() => {}}
-                        />
-                        {true ? (
-                            <Loader />
-                        ) : (
+                    {connectedAccount ? (
+                        <div className='p-5 sm:w-96 w-full flex flex-col justify-start rounded-2xl items-center blue-glassmorphism'>
+                            <Input
+                                placeholder='Address To'
+                                type='input'
+                                name='addressTo'
+                                handleChange={handleChange}
+                            />
+                            <Input
+                                placeholder='Amount (ETH)'
+                                type='number'
+                                name='amount'
+                                handleChange={handleChange}
+                            />{' '}
+                            <Input
+                                placeholder='Keyword (Gif)'
+                                type='input'
+                                name='keyword'
+                                handleChange={handleChange}
+                            />{' '}
+                            <Input
+                                placeholder='Enter Message'
+                                type='input'
+                                name='message'
+                                handleChange={handleChange}
+                            />
+                            {isLoading ? (
+                                <Loader />
+                            ) : (
+                                <button
+                                    type='submit'
+                                    onClick={handleSubmit}
+                                    className='flex w-full justify-center text-white border-[1px] border-[#2952e3] py-2 px-7 m-4 rounded-full curser-pointer hover:bg-[#2546bd]'
+                                >
+                                    Send Now
+                                </button>
+                            )}
+                        </div>
+                    ) : (
+                        <>
+                            <div className='text-white text-sm'>Demo only, use test account</div>
                             <button
-                                type='submit'
-                                onClick={handleSubmit}
-                                className='w-full text-white border-[1px] border-[#2952e3] py-2 px-7 m-4 rounded-full curser-pointer hover:bg-[#2546bd]'
+                                type='button'
+                                onClick={connectWallet}
+                                className='flex flex-row w-full justify-center items-center my-5 p-3 bg-[#2952e3] rounded-full curser-pointer hover:bg-[#2546bd]'
                             >
-                                Send Now
+                                <p className='text-white text-base text-semibold'>Connect Wallet</p>
                             </button>
-                        )}
-                    </div>
+                        </>
+                    )}
                 </div>
             </div>
         </div>
