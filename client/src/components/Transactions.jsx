@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { TransactionContext } from '../context/TransactionContext';
 
+import { shortenAddress } from '../util/shortenAddress';
 import transactions from '../util/transactions';
 
 const TransactionCard = ({ addressTo, addressFrom, timestamp, amount, message, keyword, url }) => {
@@ -14,7 +15,32 @@ const TransactionCard = ({ addressTo, addressFrom, timestamp, amount, message, k
             flex-col 
             p-3 rounded-md hover:shadow-2xl'
         >
-            <div className='flex flex-col items-center w-full mt-3'></div>
+            <div className='flex flex-col items-center w-full mt-3'>
+                <div className='w-full mb-6 p-2'>
+                    <a
+                        href={`https://goerli.etherscan.io/${addressFrom}`}
+                        target='_blank'
+                        rel='nofollow noreferrer noopener'
+                    >
+                        <p className='text-white text-base'>{`Address From: ${shortenAddress(
+                            addressFrom
+                        )}`}</p>
+                        <p className='text-white text-base'>{`Address To: ${shortenAddress(
+                            addressTo
+                        )}`}</p>
+                        <p className='text-white text-base'>Amount: {amount} ETH</p>
+                        {message && (
+                            <>
+                                <br />
+                                <p className='text-white text-base'>Message: {message}</p>
+                            </>
+                        )}
+                        <div className='bg-black rounded-3xl p-3 px-5 w-max -mt-5 shadow-2xl'>
+                            <p className='text-[#37c7da] font-bold'>{timestamp}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
     );
 };

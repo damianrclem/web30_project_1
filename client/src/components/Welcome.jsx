@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { AiFillCiCircle } from 'react-icons/ai';
 import { SiEthereum } from 'react-icons/si';
 import { BsInfoCircle } from 'react-icons/bs';
+import { shortenAddress } from '../util/shortenAddress';
 
 import { TransactionContext } from '../context/TransactionContext';
 
@@ -26,11 +27,6 @@ const Input = ({ placeholder, type, name, value, handleChange }) => (
 const Welcome = () => {
     const { connectWallet, connectedAccount, formData, handleChange, sendTransaction, isLoading } =
         useContext(TransactionContext);
-
-    const truncateConnectedAddress =
-        connectedAccount.substr(0, 5) +
-        '...' +
-        connectedAccount.substr(connectedAccount.length - 5, connectedAccount.length);
 
     const handleSubmit = (e) => {
         const { addressTo, amount, keyword, message } = formData;
@@ -74,8 +70,8 @@ const Welcome = () => {
                             </div>
                             <div>
                                 <p className='text-white font-light text-sm'>
-                                    {truncateConnectedAddress ? (
-                                        truncateConnectedAddress
+                                    {connectedAccount ? (
+                                        shortenAddress(connectedAccount)
                                     ) : (
                                         <div>Connect Wallet</div>
                                     )}
