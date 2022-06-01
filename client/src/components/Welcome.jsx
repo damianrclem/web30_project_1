@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 
-import { AiFillCiCircle } from 'react-icons/ai';
 import { SiEthereum } from 'react-icons/si';
 import { BsInfoCircle } from 'react-icons/bs';
 import { shortenAddress } from '../util/shortenAddress';
@@ -48,7 +47,6 @@ const Welcome = () => {
                     <p className='text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base'>
                         Explore the crypto world. Buy and sell cryptocurrency easily on KryptoGIF
                     </p>
-
                     <div className='grid sm:grid-cols-3 grid-cols-2 w-full mt-10'>
                         <div className={`rounded-tl-2xl ${commonStyles}`}>Reliability</div>
                         <div className={commonStyles}>Security</div>
@@ -58,7 +56,6 @@ const Welcome = () => {
                         <div className={`rounded-br-2xl ${commonStyles}`}>Blockchain</div>
                     </div>
                 </div>
-
                 <div className='flex flex-col flex-1 items-center justify-start w-full md:mt-0 mt-10'>
                     <div className='p-3 justify-end items-start flex-col rounded-xl h-40 w-72 my-5 eth-card white-glassmorphism'>
                         <div className='flex justify-between flex-col w-full h-full'>
@@ -69,13 +66,13 @@ const Welcome = () => {
                                 <BsInfoCircle fontSize={17} color='#fff' />
                             </div>
                             <div>
-                                <p className='text-white font-light text-sm'>
+                                <span className='text-white font-light text-sm'>
                                     {connectedAccount ? (
                                         shortenAddress(connectedAccount)
                                     ) : (
                                         <div>Connect Wallet</div>
                                     )}
-                                </p>
+                                </span>
                                 <p className='text-white font-light text-lg mt-1'>Ethereum</p>
                             </div>
                         </div>
