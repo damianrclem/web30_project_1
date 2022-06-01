@@ -11,6 +11,11 @@ Send ETH to someone and receive a random GIF
 - Hardhat
 - React
 - Tailwind css 3.0
+- Goerli Testnet
+
+# EtherScan Contract
+https://goerli.etherscan.io/address/0x11857c0ad514ea3c6bab68c169c85c4a1c9464ef
+
 
 # Run project locally
 from the the /client folder run the following
