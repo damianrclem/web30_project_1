@@ -11,3 +11,10 @@ Send ETH to someone and receive a random GIF
 - Hardhat
 - React
 - Tailwind css 3.0
+
+# Run project locally
+from the the /client folder run the following
+```
+yarn dev
+```
+
