@@ -14,7 +14,7 @@ contract Transactions {
   struct TransferStruct {
     address sender;
     address receiver;
-    uint ammount;
+    uint amount;
     string message;
     uint256 timestamp;
     string keyword;
