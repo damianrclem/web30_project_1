@@ -4,7 +4,11 @@ import { TransactionContext } from '../context/TransactionContext';
 import { shortenAddress } from '../util/shortenAddress';
 import transactions from '../util/transactions';
 
+import fetchGiphyImage from '../clients/giphy';
+
 const TransactionCard = ({ addressTo, addressFrom, timestamp, amount, message, keyword, url }) => {
+    const gifUrl = fetchGiphyImage({ keyword });
+
     return (
         <div
             className='flex flex-1 bg-[#181918] m-4 
@@ -35,10 +39,16 @@ const TransactionCard = ({ addressTo, addressFrom, timestamp, amount, message, k
                                 <p className='text-white text-base'>Message: {message}</p>
                             </>
                         )}
-                        <div className='bg-black rounded-3xl p-3 px-5 w-max -mt-5 shadow-2xl'>
-                            <p className='text-[#37c7da] font-bold'>{timestamp}</p>
-                        </div>
                     </a>
+                </div>
+                <img
+                    src={gifUrl || url}
+                    alt={keyword}
+                    className='w-full h-64 2x:h-96 rounded-md shadow-lg object-cover'
+                />
+
+                <div className='bg-black rounded-3xl p-3 px-5 w-max -mt-5 shadow-2xl'>
+                    <p className='text-[#37c7da] font-bold'>{timestamp}</p>
                 </div>
             </div>
         </div>
