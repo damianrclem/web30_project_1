@@ -33,6 +33,17 @@ export const TransactionProvider = ({ children }) => {
         setFormData((prevState) => ({ ...prevState, [name]: e.target.value }));
     };
 
+    const getAllTransactions = async () => {
+        try {
+            if (!ethereum) return alert('Please install metamask');
+            const transactionContract = getEthereumContract();
+            const allTransactions = await transactionContract.getAllTransactions();
+            console.log(allTransactions);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const isWalletConnected = async () => {
         try {
             if (!ethereum) return alert('Please install metamask');
@@ -41,7 +52,7 @@ export const TransactionProvider = ({ children }) => {
             if (accounts.length) {
                 setConnectedAccount(accounts[0]);
 
-                // getAllTransactions();
+                getAllTransactions();
             } else {
                 console.log('No accounts found');
             }
@@ -51,9 +62,16 @@ export const TransactionProvider = ({ children }) => {
         }
     };
 
-    useEffect(() => {
-        isWalletConnected();
-    }, []);
+    const checkIfTransactionExists = async () => {
+        try {
+            const transactionContract = getEthereumContract();
+            const transactionCount = await transactionContract.getTransactionCount();
+            window.localStorage.setItem('transactionCount', transactionCount);
+        } catch (error) {
+            console.error('transaction count error', error);
+            throw new Error(`error getting transaction count ${error}`);
+        }
+    };
 
     const sendTransaction = async () => {
         try {
@@ -110,6 +128,11 @@ export const TransactionProvider = ({ children }) => {
             throw new Error('something happened with connecting wallet account');
         }
     };
+
+    useEffect(() => {
+        isWalletConnected();
+        checkIfTransactionExists();
+    }, []);
 
     return (
         <TransactionContext.Provider
