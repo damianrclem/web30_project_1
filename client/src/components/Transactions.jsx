@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { TransactionContext } from '../context/TransactionContext';
 
 import { shortenAddress } from '../util/shortenAddress';
-import transactions from '../util/transactions';
 
 import fetchGiphyImage from '../clients/giphy';
 
@@ -45,6 +44,7 @@ const TransactionCard = ({ addressTo, addressFrom, timestamp, amount, message, k
                     src={gifUrl || url}
                     alt={keyword}
                     className='w-full h-64 2x:h-96 rounded-md shadow-lg object-cover'
+                    style={{ objectFit: 'cover' }}
                 />
 
                 <div className='bg-black rounded-3xl p-3 px-5 w-max -mt-5 shadow-2xl'>
@@ -56,7 +56,7 @@ const TransactionCard = ({ addressTo, addressFrom, timestamp, amount, message, k
 };
 
 const Transactions = () => {
-    const { connectedAccount } = useContext(TransactionContext);
+    const { connectedAccount, transactions } = useContext(TransactionContext);
 
     return (
         <div className='flex w-full justify-center items-center 2x1:px-20 gradient-bg-transactions'>
